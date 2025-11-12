@@ -5,7 +5,7 @@ import { REQUEST_METHOD } from '../contsts/requestMetods';
 export class RequestHandler {
   private request: APIRequestContext;
   private logger: APILogger;
-  private baseUrl: string;
+  private baseUrl: string | undefined;
   private defaultBaseUrl: string;
   private apiPath: string;
   private queryParams: object = {};
@@ -48,6 +48,7 @@ export class RequestHandler {
     this.logger.logRequest(REQUEST_METHOD.get, url, this.apiHeaders);
     const response = await this.request.get(url, { headers: this.apiHeaders });
 
+    this.cleanupFields();
     const actualStatus = response.status();
     const responseJSON = await response.json();
 
@@ -70,6 +71,7 @@ export class RequestHandler {
       data: this.apiBody,
     });
 
+    this.cleanupFields();
     const actualStatus = response.status();
     const responseJSON = await response.json();
 
@@ -92,6 +94,7 @@ export class RequestHandler {
       data: this.apiBody,
     });
 
+    this.cleanupFields();
     const actualStatus = response.status();
     const responseJSON = await response.json();
 
@@ -108,6 +111,7 @@ export class RequestHandler {
       headers: this.apiHeaders,
     });
 
+    this.cleanupFields();
     const actualStatus = response.status();
 
     this.statusCodeValidator(actualStatus, statusCode, this.deleteRequest);
@@ -121,6 +125,14 @@ export class RequestHandler {
       url.searchParams.append(key, value);
     }
     return url.toString();
+  }
+
+  private cleanupFields() {
+    this.apiBody = {};
+    this.apiHeaders = {};
+    this.baseUrl = undefined;
+    this.apiPath = '';
+    this.queryParams = {};
   }
 
   private statusCodeValidator(
