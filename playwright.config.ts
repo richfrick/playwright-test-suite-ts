@@ -45,7 +45,7 @@ export default defineConfig({
     },
     {
       name: 'smoke-tests',
-      testMatch: '*schema.spec.ts',
+      testMatch: '*smoke.spec.ts',
       //dependencies: ['schema-validation'],
     },
     {
