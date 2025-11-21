@@ -2,8 +2,15 @@ import { GETArticleSchema } from './articles/GET_article_schema';
 import { GETArticlesSchema } from './articles/GET_articles_schema';
 import { ArticleRequestBody } from '../request-bodies/articles/articles';
 import { GETHealthzSchema } from './healthz/GET_healthz_schema';
+import { GETApiSchema } from './api/GET_api_schema';
 
 export interface ResponseTypes {
+  api: {
+    GET: {
+      response: GETApiSchema;
+      query: {};
+    };
+  };
   '/api/articles': {
     GET: {
       response: GETArticlesSchema;
