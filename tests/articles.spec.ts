@@ -1,6 +1,7 @@
-import { ArticleRequestBody } from '../types/request-bodies/articles/articles';
 import { expect } from '@playwright/test';
 import { test } from '../utils/fixtures';
+import articleRequestPayload from '../request-objects/POST-article.json';
+import { generateRandomArticleBody } from '../utils/datd-generator';
 
 test('Retrieve all articles', async ({ api }) => {
   const response = await api
@@ -25,17 +26,10 @@ test('Retrieve an article', async ({ api }) => {
 });
 
 test('create and delete article', async ({ api }) => {
-  const articleBody: ArticleRequestBody = {
-    author: 'tickle122',
-    title: 'test title',
-    body: 'test body',
-    topic: 'football',
-    article_img_url:
-      'https://images.pexels.com/photos/11035380/pexels-photo-11035380.jpeg?w=700&h=700',
-  };
+  const articleRequestBody = await generateRandomArticleBody();
   const createArticleResponse = await api
     .path('/api/articles')
-    .body(articleBody)
+    .body(articleRequestBody)
     .post(201);
 
   expect(createArticleResponse.article.article_id).toBeGreaterThan(0);

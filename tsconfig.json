@@ -4,6 +4,7 @@
     "module": "Node16",
     "lib": ["ESNext", "DOM"],
     "moduleResolution": "node16",
+    "resolveJsonModule": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
