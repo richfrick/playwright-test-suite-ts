@@ -1,5 +1,5 @@
 /*
-    These are the environment specific variables, these can also be pulled from secrest server
+    These are the environment specific variables, these can also be pulled from secret server
 */
 import path from 'path';
 import dotenv from 'dotenv';
